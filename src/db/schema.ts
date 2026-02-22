@@ -1,0 +1,80 @@
+import { appSchema, tableSchema } from '@nozbe/watermelondb';
+
+export const schema = appSchema({
+  version: 1,
+  tables: [
+    tableSchema({
+      name: 'attendance_logs',
+      columns: [
+        { name: 'server_id', type: 'string', isOptional: true },
+        { name: 'employee_id', type: 'string' },
+        { name: 'log_date', type: 'string' },
+        { name: 'check_in_time', type: 'number', isOptional: true },
+        { name: 'check_out_time', type: 'number', isOptional: true },
+        { name: 'check_in_lat', type: 'number', isOptional: true },
+        { name: 'check_in_lng', type: 'number', isOptional: true },
+        { name: 'check_in_selfie_url', type: 'string', isOptional: true },
+        { name: 'is_auto_punch_out', type: 'boolean' },
+        { name: 'is_synced', type: 'boolean' },
+        { name: 'created_at', type: 'number' },
+      ],
+    }),
+    tableSchema({
+      name: 'checklist_responses',
+      columns: [
+        { name: 'server_id', type: 'string', isOptional: true },
+        { name: 'checklist_id', type: 'string' },
+        { name: 'employee_id', type: 'string' },
+        { name: 'response_date', type: 'string' },
+        { name: 'responses_json', type: 'string' },
+        { name: 'is_complete', type: 'boolean' },
+        { name: 'is_synced', type: 'boolean' },
+        { name: 'submitted_at', type: 'number' },
+        { name: 'created_at', type: 'number' },
+      ],
+    }),
+    tableSchema({
+      name: 'visitors',
+      columns: [
+        { name: 'server_id', type: 'string', isOptional: true },
+        { name: 'visitor_name', type: 'string' },
+        { name: 'phone', type: 'string', isOptional: true },
+        { name: 'flat_id', type: 'string', isOptional: true },
+        { name: 'entry_time', type: 'number' },
+        { name: 'exit_time', type: 'number', isOptional: true },
+        { name: 'entry_guard_id', type: 'string', isOptional: true },
+        { name: 'is_synced', type: 'boolean' },
+        { name: 'created_at', type: 'number' },
+      ],
+    }),
+    tableSchema({
+      name: 'panic_alerts',
+      columns: [
+        { name: 'server_id', type: 'string', isOptional: true },
+        { name: 'guard_id', type: 'string' },
+        { name: 'alert_type', type: 'string' },
+        { name: 'latitude', type: 'number', isOptional: true },
+        { name: 'longitude', type: 'number', isOptional: true },
+        { name: 'description', type: 'string', isOptional: true },
+        { name: 'is_resolved', type: 'boolean' },
+        { name: 'is_synced', type: 'boolean' },
+        { name: 'alert_time', type: 'number' },
+        { name: 'created_at', type: 'number' },
+      ],
+    }),
+    tableSchema({
+      name: 'gps_points',
+      columns: [
+        { name: 'server_id', type: 'string', isOptional: true },
+        { name: 'employee_id', type: 'string' },
+        { name: 'latitude', type: 'number' },
+        { name: 'longitude', type: 'number' },
+        { name: 'tracked_at', type: 'number' },
+        { name: 'battery_level', type: 'number', isOptional: true },
+        { name: 'is_mock_location', type: 'boolean' },
+        { name: 'is_synced', type: 'boolean' },
+        { name: 'created_at', type: 'number' },
+      ],
+    }),
+  ],
+});
