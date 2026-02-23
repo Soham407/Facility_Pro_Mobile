@@ -51,6 +51,14 @@ export type BuyerTabParamList = {
   Feedback: undefined;
 };
 
+// Supplier Tabs
+export type SupplierTabParamList = {
+  Inbox: undefined;
+  Active: undefined;
+  History: undefined;
+  Billing: undefined;
+};
+
 // Admin / MD / HOD Tabs
 export type AdminTabParamList = {
   Dashboard: undefined;
@@ -75,8 +83,8 @@ export const ROLE_NAVIGATOR_MAP: Record<UserRole, string> = {
   delivery_boy: 'Delivery',
   buyer: 'Buyer',
   resident: 'Buyer',
-  supplier: 'Buyer',
-  vendor: 'Buyer',
+  supplier: 'Supplier',
+  vendor: 'Supplier',
   admin: 'Admin',
   company_md: 'Admin',
   company_hod: 'Admin',

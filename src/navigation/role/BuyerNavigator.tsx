@@ -2,21 +2,12 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '../../lib/constants';
-import { PlaceholderScreen } from '../../screens/shared/PlaceholderScreen';
 import type { BuyerTabParamList } from '../../types/navigation';
+import { RequestsScreen } from '../../screens/buyer/RequestsScreen';
+import { TrackScreen } from '../../screens/buyer/TrackScreen';
+import { FeedbackScreen } from '../../screens/buyer/FeedbackScreen';
 
 const Tab = createBottomTabNavigator<BuyerTabParamList>();
-const ROLE = 'Buyer / Resident';
-
-function RequestsScreen() {
-  return <PlaceholderScreen screenName="Requests" roleName={ROLE} iconName="document-text" />;
-}
-function TrackScreen() {
-  return <PlaceholderScreen screenName="Track" roleName={ROLE} iconName="trail-sign" />;
-}
-function FeedbackScreen() {
-  return <PlaceholderScreen screenName="Feedback" roleName={ROLE} iconName="star" />;
-}
 
 export function BuyerNavigator() {
   return (

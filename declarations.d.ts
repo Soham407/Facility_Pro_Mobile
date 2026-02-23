@@ -2,12 +2,22 @@
 declare module '@nozbe/watermelondb' {
   export class Database {
     constructor(options: { adapter: any; modelClasses: any[] });
-    get<T>(tableName: string): any;
+    collections: { get<T>(tableName: string): Collection<T>; };
+    write<T>(work: () => Promise<T>): Promise<T>;
   }
+
+  export class Collection<T> {
+    create(updater: (record: T) => void): Promise<T>;
+    query(...args: any[]): { fetch(): Promise<T[]> };
+  }
+
+  export const Q: any;
 
   export class Model {
     static table: string;
     id: string;
+    update(updater: (record: this) => void): Promise<this>;
+    destroyPermanently(): Promise<void>;
   }
 
   export class Query<T> {}

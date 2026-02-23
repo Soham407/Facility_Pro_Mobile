@@ -14,6 +14,7 @@ import { ManagerNavigator } from './role/ManagerNavigator';
 import { TechnicianNavigator } from './role/TechnicianNavigator';
 import { DeliveryNavigator } from './role/DeliveryNavigator';
 import { BuyerNavigator } from './role/BuyerNavigator';
+import { SupplierNavigator } from './role/SupplierNavigator';
 import { AdminNavigator } from './role/AdminNavigator';
 
 // Splash
@@ -37,6 +38,8 @@ function getRoleNavigator(roleName: UserRole | null) {
       return DeliveryNavigator;
     case 'Buyer':
       return BuyerNavigator;
+    case 'Supplier':
+      return SupplierNavigator;
     case 'Admin':
       return AdminNavigator;
     default:

@@ -13,14 +13,50 @@ import { Ionicons } from '@expo/vector-icons';
 import { useAuth } from '../../hooks/useAuth';
 import { Button } from '../../components/ui/Button';
 import { Colors, FontSize, Radius } from '../../lib/constants';
+import { 
+  authenticateWithBiometric, 
+  biometricStorage, 
+  enableBiometric, 
+  isBiometricAvailable,
+  isSessionExpired
+} from '../../lib/biometric';
+import { supabase } from '../../lib/supabase';
 
 export function LoginScreen() {
-  const { signIn } = useAuth();
+  const { signIn, restoreSession } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  
+  const [isBiometricPending, setIsBiometricPending] = useState(false);
+
+  React.useEffect(() => {
+    async function checkInitialBiometric() {
+      const isEnabled = biometricStorage.getString('biometric_enabled') === 'true';
+      if (!isEnabled) return;
+      
+      if (isSessionExpired()) {
+        biometricStorage.delete('biometric_enabled'); // Clear it if expired
+        return;
+      }
+      
+      const { data } = await supabase.auth.getSession();
+      if (data.session) {
+        setIsBiometricPending(true);
+        triggerBiometricAuth();
+      }
+    }
+    checkInitialBiometric();
+  }, []);
+
+  const triggerBiometricAuth = async () => {
+    const success = await authenticateWithBiometric();
+    if (success) {
+      await restoreSession(true);
+    }
+  };
 
   const handleLogin = async () => {
     if (!email.trim() || !password.trim()) {
@@ -35,9 +71,38 @@ export function LoginScreen() {
 
     if (!result.success) {
       setErrorMsg(result.error ?? 'Login failed. Please try again.');
+      setLoading(false);
+    } else {
+      // Prompt for biometric
+      const { data } = await supabase.auth.getSession();
+      if (data.session) {
+        await enableBiometric(data.session.user.id);
+      }
+      setLoading(false);
     }
-    setLoading(false);
   };
+
+  if (isBiometricPending) {
+    return (
+      <View style={[styles.container, styles.centerAll]}>
+        <Ionicons name="finger-print" size={80} color={Colors.primary} style={{ marginBottom: 24 }} />
+        <Text style={styles.cardTitle}>Biometric Lock</Text>
+        <Text style={styles.cardSubtitle}>App is protected to secure enterprise data</Text>
+        
+        <Button 
+          title="Authenticate" 
+          onPress={triggerBiometricAuth} 
+          style={{ width: 220, marginVertical: 16 }} 
+        />
+        
+        <TouchableOpacity onPress={() => setIsBiometricPending(false)} style={{ padding: 12 }}>
+          <Text style={{ color: Colors.textMuted, fontSize: FontSize.body }}>
+            Use Password Instead
+          </Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
 
   return (
     <KeyboardAvoidingView
@@ -148,6 +213,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.background,
+  },
+  centerAll: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 24,
   },
   scroll: {
     flexGrow: 1,

@@ -11,7 +11,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#0F172A"
     },
-    "platforms": ["android"],
+    "platforms": [
+      "android"
+    ],
     "android": {
       "package": "com.facilitypro.mobile",
       "versionCode": 1,
@@ -26,7 +28,11 @@
         "CAMERA",
         "VIBRATE",
         "RECEIVE_BOOT_COMPLETED",
-        "FOREGROUND_SERVICE"
+        "FOREGROUND_SERVICE",
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO",
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_FINE_LOCATION"
       ],
       "googleServicesFile": "./google-services.json"
     },
@@ -39,7 +45,14 @@
         }
       ],
       "@react-native-firebase/app",
-      "@react-native-firebase/messaging"
-    ]
+      "@react-native-firebase/messaging",
+      "expo-local-authentication",
+      "expo-notifications"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "6c9ab5c5-4098-4cf8-baea-be4873577c7b"
+      }
+    }
   }
 }

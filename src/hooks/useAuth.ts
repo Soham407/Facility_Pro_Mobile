@@ -2,6 +2,7 @@ import { useCallback, useEffect } from 'react';
 import { supabase, authStorage } from '../lib/supabase';
 import { useAuthStore } from '../stores/authStore';
 import type { AppUser, AppRole } from '../types/auth';
+import { biometricStorage, isSessionExpired, updateLastActive } from '../lib/biometric';
 
 export function useAuth() {
   const { user, role, isAuthenticated, isLoading, login, logout, setLoading } =
@@ -93,15 +94,30 @@ export function useAuth() {
   }, [logout]);
 
   // Restore session on app start
-  const restoreSession = useCallback(async () => {
+  const restoreSession = useCallback(async (skipBiometricCheck = false) => {
     try {
+      if (!skipBiometricCheck && isSessionExpired()) {
+        await supabase.auth.signOut();
+        authStorage.clearAll();
+        logout();
+        return;
+      }
+
       const {
         data: { session },
       } = await supabase.auth.getSession();
 
       if (session?.user) {
+        if (!skipBiometricCheck && biometricStorage.getString('biometric_enabled') === 'true') {
+          // If biometric is enabled and we aren't explicitly skipping the check (i.e. returning from successful biometric prompt),
+          // we do NOT log them in automatically. We let LoginScreen handle the biometric prompt.
+          logout();
+          return;
+        }
+
         const profile = await fetchUserProfile(session.user.id);
         if (profile && profile.appUser.is_active) {
+          updateLastActive();
           login(profile.appUser, profile.appRole, {
             access_token: session.access_token,
             refresh_token: session.refresh_token,

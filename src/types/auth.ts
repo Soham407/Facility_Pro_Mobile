@@ -19,6 +19,8 @@ export interface AppUser {
   role_id: string;
   username: string;
   full_name: string;
+  first_name?: string;
+  last_name?: string;
   email: string;
   phone: string | null;
   is_active: boolean;
