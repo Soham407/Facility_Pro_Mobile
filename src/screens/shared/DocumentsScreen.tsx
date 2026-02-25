@@ -26,7 +26,7 @@ export function DocumentsScreen() {
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [uploadingDocType, setUploadingDocType] = useState<string | null>(null);
 
-  const isSecurityStaff = role?.role_name.includes('security') || role?.role_name === 'guard';
+  const isSecurityStaff = role?.role_name.includes('security') || (role?.role_name as string) === 'guard';
 
   const visibleDocs = DOC_TYPES.filter(d => !d.securityOnly || isSecurityStaff);
 
@@ -145,7 +145,7 @@ export function DocumentsScreen() {
     const isUploading = uploadingDocType === docDef.id;
 
     let statusText = 'Not Uploaded';
-    let statusColor = Colors.border;
+    let statusColor: string = Colors.border;
 
     if (doc) {
       if (doc.is_verified) { statusText = 'Verified'; statusColor = Colors.success; }

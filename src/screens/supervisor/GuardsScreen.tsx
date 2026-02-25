@@ -34,7 +34,7 @@ export function GuardsScreen() {
       if (!pos) return null;
 
       const outdated = pos.minutes_ago > 15;
-      let statusColor = Colors.success;
+      let statusColor: string = Colors.success;
       if (pos.minutes_ago > 30) statusColor = Colors.danger;
       else if (pos.minutes_ago > 10) statusColor = Colors.accent;
 
@@ -87,7 +87,7 @@ export function GuardsScreen() {
             const m = pos?.minutes_ago || 999;
             const isSelected = selectedGuard === item.guard_id;
             
-            let statusBadge = Colors.success;
+            let statusBadge: string = Colors.success;
             if (m > 30) statusBadge = Colors.danger;
             else if (m > 10) statusBadge = Colors.accent;
 

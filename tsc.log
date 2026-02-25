@@ -1,0 +1,38 @@
+src/hooks/useManagerData.ts(53,35): error TS2339: Property 'created_at' does not exist on type 'ParserError<"Unexpected input: as title, description, alert_time as created_at, 'alert' as type"> | ParserError<"Unexpected input: as title, status as description, applied_at as created_at, 'leave' as type"> | ParserError<...>'.
+  Property 'created_at' does not exist on type 'ParserError<"Unexpected input: as title, description, alert_time as created_at, 'alert' as type">'.
+src/hooks/useManagerData.ts(53,70): error TS2339: Property 'created_at' does not exist on type 'ParserError<"Unexpected input: as title, description, alert_time as created_at, 'alert' as type"> | ParserError<"Unexpected input: as title, status as description, applied_at as created_at, 'leave' as type"> | ParserError<...>'.
+  Property 'created_at' does not exist on type 'ParserError<"Unexpected input: as title, description, alert_time as created_at, 'alert' as type">'.
+src/lib/biometric.ts(56,39): error TS2339: Property 'getNumber' does not exist on type 'MMKV'.
+src/lib/notifications.ts(86,5): error TS2322: Type '(notification: Notification) => Promise<{ shouldShowAlert: true; shouldPlaySound: true; shouldSetBadge: true; } | { shouldShowAlert: true; shouldPlaySound: false; shouldSetBadge: true; }>' is not assignable to type '(notification: Notification) => Promise<NotificationBehavior>'.
+  Type 'Promise<{ shouldShowAlert: true; shouldPlaySound: true; shouldSetBadge: true; } | { shouldShowAlert: true; shouldPlaySound: false; shouldSetBadge: true; }>' is not assignable to type 'Promise<NotificationBehavior>'.
+    Type '{ shouldShowAlert: true; shouldPlaySound: true; shouldSetBadge: true; } | { shouldShowAlert: true; shouldPlaySound: false; shouldSetBadge: true; }' is not assignable to type 'NotificationBehavior'.
+      Type '{ shouldShowAlert: true; shouldPlaySound: true; shouldSetBadge: true; }' is missing the following properties from type 'NotificationBehavior': shouldShowBanner, shouldShowList
+src/screens/manager/OverviewScreen.tsx(29,89): error TS2339: Property 'warning' does not exist on type '{ readonly primary: "#1E40AF"; readonly primaryDark: "#1E3A8A"; readonly primaryLight: "#3B82F6"; readonly accent: "#F59E0B"; readonly success: "#10B981"; readonly danger: "#EF4444"; ... 7 more ...; readonly transparent: "transparent"; }'.
+src/screens/manager/OverviewScreen.tsx(54,24): error TS2339: Property 'type' does not exist on type 'ParserError<"Unexpected input: as title, description, alert_time as created_at, 'alert' as type"> | ParserError<"Unexpected input: as title, status as description, applied_at as created_at, 'leave' as type"> | ParserError<...>'.
+  Property 'type' does not exist on type 'ParserError<"Unexpected input: as title, description, alert_time as created_at, 'alert' as type">'.
+src/screens/manager/OverviewScreen.tsx(54,66): error TS2322: Type '"#EF4444"' is not assignable to type '"#1E40AF"'.
+src/screens/manager/OverviewScreen.tsx(55,24): error TS2339: Property 'type' does not exist on type 'ParserError<"Unexpected input: as title, description, alert_time as created_at, 'alert' as type"> | ParserError<"Unexpected input: as title, status as description, applied_at as created_at, 'leave' as type"> | ParserError<...>'.
+  Property 'type' does not exist on type 'ParserError<"Unexpected input: as title, description, alert_time as created_at, 'alert' as type">'.
+src/screens/manager/OverviewScreen.tsx(55,67): error TS2322: Type '"#F59E0B"' is not assignable to type '"#1E40AF"'.
+src/screens/manager/OverviewScreen.tsx(56,24): error TS2339: Property 'type' does not exist on type 'ParserError<"Unexpected input: as title, description, alert_time as created_at, 'alert' as type"> | ParserError<"Unexpected input: as title, status as description, applied_at as created_at, 'leave' as type"> | ParserError<...>'.
+  Property 'type' does not exist on type 'ParserError<"Unexpected input: as title, description, alert_time as created_at, 'alert' as type">'.
+src/screens/manager/OverviewScreen.tsx(56,70): error TS2322: Type '"#10B981"' is not assignable to type '"#1E40AF"'.
+src/screens/manager/OverviewScreen.tsx(59,45): error TS2339: Property 'id' does not exist on type 'ParserError<"Unexpected input: as title, description, alert_time as created_at, 'alert' as type"> | ParserError<"Unexpected input: as title, status as description, applied_at as created_at, 'leave' as type"> | ParserError<...>'.
+  Property 'id' does not exist on type 'ParserError<"Unexpected input: as title, description, alert_time as created_at, 'alert' as type">'.
+src/screens/manager/OverviewScreen.tsx(64,58): error TS2339: Property 'title' does not exist on type 'ParserError<"Unexpected input: as title, description, alert_time as created_at, 'alert' as type"> | ParserError<"Unexpected input: as title, status as description, applied_at as created_at, 'leave' as type"> | ParserError<...>'.
+  Property 'title' does not exist on type 'ParserError<"Unexpected input: as title, description, alert_time as created_at, 'alert' as type">'.
+src/screens/manager/OverviewScreen.tsx(65,75): error TS2339: Property 'description' does not exist on type 'ParserError<"Unexpected input: as title, description, alert_time as created_at, 'alert' as type"> | ParserError<"Unexpected input: as title, status as description, applied_at as created_at, 'leave' as type"> | ParserError<...>'.
+  Property 'description' does not exist on type 'ParserError<"Unexpected input: as title, description, alert_time as created_at, 'alert' as type">'.
+src/screens/manager/OverviewScreen.tsx(68,36): error TS2339: Property 'created_at' does not exist on type 'ParserError<"Unexpected input: as title, description, alert_time as created_at, 'alert' as type"> | ParserError<"Unexpected input: as title, status as description, applied_at as created_at, 'leave' as type"> | ParserError<...>'.
+  Property 'created_at' does not exist on type 'ParserError<"Unexpected input: as title, description, alert_time as created_at, 'alert' as type">'.
+src/screens/shared/DocumentsScreen.tsx(29,67): error TS2367: This comparison appears to be unintentional because the types 'UserRole | undefined' and '"guard"' have no overlap.
+src/screens/shared/DocumentsScreen.tsx(151,55): error TS2322: Type '"#10B981"' is not assignable to type '"#334155"'.
+src/screens/shared/DocumentsScreen.tsx(152,49): error TS2322: Type '"#F59E0B"' is not assignable to type '"#334155"'.
+src/screens/supervisor/DashboardScreen.tsx(51,34): error TS2322: Type '"#EF4444"' is not assignable to type '"#10B981"'.
+src/screens/supervisor/DashboardScreen.tsx(52,39): error TS2322: Type '"#F59E0B"' is not assignable to type '"#10B981"'.
+src/screens/supervisor/GuardsScreen.tsx(38,33): error TS2322: Type '"#EF4444"' is not assignable to type '"#10B981"'.
+src/screens/supervisor/GuardsScreen.tsx(39,38): error TS2322: Type '"#F59E0B"' is not assignable to type '"#10B981"'.
+src/screens/supervisor/GuardsScreen.tsx(91,25): error TS2322: Type '"#EF4444"' is not assignable to type '"#10B981"'.
+src/screens/supervisor/GuardsScreen.tsx(92,30): error TS2322: Type '"#F59E0B"' is not assignable to type '"#10B981"'.
+src/screens/supervisor/ReportsScreen.tsx(61,46): error TS2322: Type '"#EF4444"' is not assignable to type '"#10B981"'.
+src/screens/supervisor/ReportsScreen.tsx(62,44): error TS2322: Type '"#F59E0B"' is not assignable to type '"#10B981"'.

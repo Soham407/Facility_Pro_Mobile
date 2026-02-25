@@ -26,7 +26,7 @@ export function OverviewScreen() {
       {/* Top row — 4 KPI cards */}
       <View style={styles.kpiContainer}>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.kpiScroll}>
-          <View style={[styles.kpiCard, { borderColor: openServiceRequests > 0 ? Colors.warning : Colors.border }]}>
+          <View style={[styles.kpiCard, { borderColor: openServiceRequests > 0 ? Colors.danger : Colors.border }]}>
             <Text style={styles.kpiNumber}>{openServiceRequests}</Text>
             <Text style={styles.kpiLabel}>Open Requests</Text>
           </View>
@@ -50,7 +50,7 @@ export function OverviewScreen() {
           ) : (
             recentActivity.map((item, index) => {
               let iconName: keyof typeof Ionicons.glyphMap = 'information-circle';
-              let iconColor = Colors.primary;
+              let iconColor: string = Colors.primary;
               if (item.type === 'alert') { iconName = 'warning'; iconColor = Colors.danger; }
               if (item.type === 'leave') { iconName = 'calendar'; iconColor = Colors.accent; }
               if (item.type === 'service') { iconName = 'construct'; iconColor = Colors.success; }

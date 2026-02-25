@@ -57,7 +57,7 @@ export function ReportsScreen() {
           <View style={styles.cardContent}>
             {attendance.length === 0 ? <Text style={styles.emptyText}>No attendance records for today</Text> : (
               attendance.map((log, idx) => {
-                let statusColor = Colors.success;
+                let statusColor: string = Colors.success;
                 if (log.status === 'absent') statusColor = Colors.danger;
                 if (log.is_auto_punch_out) statusColor = Colors.accent;
 

@@ -53,7 +53,7 @@ export async function authenticateWithBiometric(): Promise<boolean> {
 }
 
 export function isSessionExpired(): boolean {
-  const lastActive = biometricStorage.getNumber('last_active');
+  const lastActive = (biometricStorage as any).getNumber('last_active');
   if (!lastActive) return true;
   const hoursSinceActive = (Date.now() - lastActive) / (1000 * 60 * 60);
   return hoursSinceActive >= SESSION_EXPIRY_HOURS;

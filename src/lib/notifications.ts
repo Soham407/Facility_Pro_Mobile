@@ -91,6 +91,8 @@ export function handleForegroundNotification(): void {
           shouldShowAlert: true,
           shouldPlaySound: true,
           shouldSetBadge: true,
+          shouldShowBanner: true,
+          shouldShowList: true,
         };
       }
       
@@ -98,6 +100,8 @@ export function handleForegroundNotification(): void {
         shouldShowAlert: true,
         shouldPlaySound: false,
         shouldSetBadge: true,
+        shouldShowBanner: true,
+        shouldShowList: true,
       };
     },
   });

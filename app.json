@@ -11,9 +11,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#0F172A"
     },
-    "platforms": [
-      "android"
-    ],
+    "platforms": ["android"],
     "android": {
       "package": "com.facilitypro.mobile",
       "versionCode": 1,
@@ -47,7 +45,26 @@
       "@react-native-firebase/app",
       "@react-native-firebase/messaging",
       "expo-local-authentication",
-      "expo-notifications"
+      "expo-notifications",
+      "@lovesworking/watermelondb-expo-plugin-sdk-52-plus",
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "compileSdkVersion": 35,
+            "targetSdkVersion": 35,
+            "buildToolsVersion": "35.0.0",
+            "packagingOptions": {
+              "pickFirst": [
+                "lib/x86/libc++_shared.so",
+                "lib/x86_64/libc++_shared.so",
+                "lib/arm64-v8a/libc++_shared.so",
+                "lib/armeabi-v7a/libc++_shared.so"
+              ]
+            }
+          }
+        }
+      ]
     ],
     "extra": {
       "eas": {

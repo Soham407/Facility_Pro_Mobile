@@ -47,7 +47,7 @@ export function DashboardScreen() {
           {clockedInGuards.map((guard) => {
             const pos = guardPositions.get(guard.guard_id);
             const minutesAgo = pos?.minutes_ago ?? 999;
-            let statusColor = Colors.success;
+            let statusColor: string = Colors.success;
             if (minutesAgo > 30) statusColor = Colors.danger;
             else if (minutesAgo > 10) statusColor = Colors.accent;
 
