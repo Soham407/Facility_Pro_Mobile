@@ -4,8 +4,7 @@ import { CameraView, useCameraPermissions } from 'expo-camera';
 import * as ImageManipulator from 'expo-image-manipulator';
 import { Ionicons } from '@expo/vector-icons';
 import { supabase } from '../../lib/supabase';
-import { database } from '../../lib/watermelon';
-import { VisitorModel } from '../../db/models/Visitor';
+
 import { useAuthStore } from '../../stores/authStore';
 import { useGuardData } from '../../hooks/useGuardData';
 import { useNetworkStore } from '../../stores/networkStore';
@@ -163,17 +162,7 @@ export function VisitorScreen() {
         serverId = data.id;
       }
 
-      await database.write(async () => {
-        await database.collections.get<VisitorModel>('visitors').create(v => {
-          if (serverId) v.serverId = serverId;
-          v.visitorName = visitorName;
-          v.phone = phone;
-          v.flatId = payload.flat_id;
-          v.entryTime = new Date(payload.entry_time).getTime();
-          v.entryGuardId = payload.entry_guard_id!;
-          v.isSynced = isOnline && !!serverId;
-        });
-      });
+
 
       Alert.alert('Success', 'Visitor logged successfully.');
       
@@ -199,15 +188,7 @@ export function VisitorScreen() {
          await supabase.from('visitors').update({ exit_time: exitTime }).eq('id', serverId);
       }
       
-      await database.write(async () => {
-        const vLogs = await database.collections.get<VisitorModel>('visitors').query().fetch();
-        const localLog = vLogs.find(l => l.serverId === serverId || l.id === id);
-        if (localLog) {
-          await localLog.update(l => {
-             l.exitTime = new Date(exitTime).getTime();
-          });
-        }
-      });
+
       fetchTodaysLog();
     } catch (e) {
        console.error(e);

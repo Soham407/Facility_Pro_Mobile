@@ -5,8 +5,7 @@ import * as Location from 'expo-location';
 import { Colors } from '../../lib/constants';
 import { useAuthStore } from '../../stores/authStore';
 import { useGuardData } from '../../hooks/useGuardData';
-import { database } from '../../lib/watermelon';
-import { PanicAlertModel } from '../../db/models/PanicAlert';
+
 import { supabase } from '../../lib/supabase';
 import { useNetworkStore } from '../../stores/networkStore';
 
@@ -58,21 +57,9 @@ export function SOSScreen() {
         }
       }
 
-      await database.write(async () => {
-        const alertModel = await database.collections.get<PanicAlertModel>('panic_alerts').create(alert => {
-          if (pendingServerId) alert.serverId = pendingServerId;
-          alert.guardId = alertPayload.guard_id!;
-          alert.alertType = alertPayload.alert_type;
-          alert.latitude = alertPayload.latitude;
-          alert.longitude = alertPayload.longitude;
-          alert.alertTime = new Date(alertPayload.alert_time).getTime();
-          alert.isResolved = false;
-          alert.isSynced = isOnline && !!pendingServerId;
-        });
-        if (!pendingServerId) {
-           setAlertId(alertModel.id); // Show local Watermelon ID if offline
-        }
-      });
+      if (!pendingServerId) {
+        setAlertId('local-' + Date.now()); // Temporary local ID if offline
+      }
       
     } catch (e: any) {
        console.error(e);
@@ -115,13 +102,7 @@ export function SOSScreen() {
        if (isOnline && alertId.includes('-')) {
           await supabase.from('panic_alerts').update({ is_resolved: true }).eq('id', alertId);
        }
-       await database.write(async () => {
-          const panics = await database.collections.get<PanicAlertModel>('panic_alerts').query().fetch();
-          const target = panics.find(p => p.serverId === alertId || p.id === alertId);
-          if (target) {
-            await target.update(p => { p.isResolved = true; });
-          }
-       });
+
     }
     setAlertId(null);
   };

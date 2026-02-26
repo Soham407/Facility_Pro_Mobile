@@ -46,7 +46,6 @@
       "@react-native-firebase/messaging",
       "expo-local-authentication",
       "expo-notifications",
-      "@lovesworking/watermelondb-expo-plugin-sdk-52-plus",
       [
         "expo-build-properties",
         {

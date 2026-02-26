@@ -4,8 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { CameraView, useCameraPermissions } from 'expo-camera';
 import * as ImageManipulator from 'expo-image-manipulator';
 import { supabase } from '../../lib/supabase';
-import { database } from '../../lib/watermelon';
-import { ChecklistResponseModel } from '../../db/models/ChecklistResponse';
+
 import { useAuthStore } from '../../stores/authStore';
 import { useGuardData } from '../../hooks/useGuardData';
 import { useNetworkStore } from '../../stores/networkStore';
@@ -121,9 +120,7 @@ export function ChecklistScreen() {
     
     if (tempPhotoUri) {
        if (!isOnline) {
-          Alert.alert('Offline', 'Photo uploads require an internet connection, but you can mark text complete if unsupported.');
-          // Or just save uri locally for Watermelon sync. Simple version: fail if offline and photo required to upload immediately.
-          // For sake of MVP rules, try upload if online:
+           Alert.alert('Offline', 'Photo uploads require an internet connection.');
        } else {
          setIsProcessingPhoto(true);
          try {
@@ -193,32 +190,7 @@ export function ChecklistScreen() {
          }
       }
 
-      // Watermelon
-      await database.write(async () => {
-         const col = database.collections.get<ChecklistResponseModel>('checklist_responses');
-         const existing = await col.query().fetch();
-         const localRec = existing.find(c => c.checklistId === checklistId && c.responseDate === today && c.employeeId === user?.employee_id);
-         
-         if (localRec) {
-           await localRec.update(c => {
-             c.responsesJson = JSON.stringify(arr);
-             c.isComplete = complete;
-             c.isSynced = isOnline && !!currentServerId;
-             if (payload.submitted_at) c.submittedAt = new Date(payload.submitted_at).getTime();
-           });
-         } else {
-           await col.create(c => {
-             if (currentServerId) c.serverId = currentServerId;
-             c.checklistId = checklistId;
-             c.employeeId = user?.employee_id!;
-             c.responseDate = today;
-             c.responsesJson = JSON.stringify(arr);
-             c.isComplete = complete;
-             c.isSynced = isOnline && !!currentServerId;
-             if (payload.submitted_at) c.submittedAt = new Date(payload.submitted_at).getTime();
-           });
-         }
-      });
+
       
       if (complete) Alert.alert('Checklist Complete', 'All tasks finished.');
     } catch (e) {
